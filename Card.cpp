@@ -5,8 +5,12 @@ Card::Card() {
 }
 
 Card::~Card() {
-    delete[] bitmap_;
-    bitmap_ = nullptr;
+
+    if (this->bitmap_ != nullptr) {
+        delete[] bitmap_;
+        bitmap_ = nullptr;
+    }
+
 }
 
 Card::Card(const Card& rhs) {
