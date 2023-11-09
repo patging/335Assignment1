@@ -34,7 +34,7 @@ class Deck
                 CardType&& c =  std::move(this->cards_.back()); // making it ready to del
                 c.setDrawn(true);
                 cards_.pop_back(); // popping 
-                return c;
+                return std::move(c);
         }
 
         bool IsEmpty() const {
@@ -42,12 +42,10 @@ class Deck
         }
 
         void Shuffle() {
-            // some random number generator with seed
-            // 2028358904
-            std::mt19937 rng;
-            rng.seed(2028358904);
+            // some random number generator
+            std::mt19937 rng(2028358904);
             // running shuffling with said rng
-            std::shuffle(std::begin(this->cards_), std::end(this->cards_), rng);
+            std::shuffle(this->cards_.begin(), this->cards_.end(), rng);
         }
 
         int getSize() const {

@@ -10,11 +10,19 @@ bool ActionCard::isPlayable() {
 
     int index = (int) this->getInstruction().find(" ") + 1;
     int index2 = (int) this->getInstruction().rfind(" ") + 1;
-    if (std::stoi(this->getInstruction().substr(index, index2 - index)) >= 0) {
-        return this->getDrawn();
-    }
-    
+
+    if (this->getDrawn()) {
+        if (this->getInstruction() == "REVERSE HAND" || this->getInstruction() == "SWAP HAND WITH OPPONENT") {
+            // we're checking for cards without a number on them
+            return true;
+        } else if (std::stoi(this->getInstruction().substr(index, index2 - index)) >= 0) {
+            // we're checking for the cards with a number to see if they're valid
+            return true;
+        } 
+    } 
+
     return false;
+
 }
 
 void ActionCard::Print() const {
