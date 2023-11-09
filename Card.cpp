@@ -1,6 +1,9 @@
 #include "Card.hpp"
-
 #include <algorithm>
+
+Card::Card() {
+    this->setDrawn(false);
+}
 
 Card::~Card() {
     delete &cardType_;
