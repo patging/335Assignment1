@@ -27,6 +27,35 @@ void Player::setScore(const int& score) {
 }
 
 void Player::play(ActionCard&& card) {
+    // step 1: determine what the actual type of the card is 
+    // step 2: execute the said instruction
+    std::string inst = card.getInstruction();
+    if (inst.find("CARD") == -1 ) {
+        // we have some card where we either play a card or draw it
+        int index = (int) inst.find(" ") + 1;
+        int index2 = (int) inst.rfind(" ") + 1;
+        int val = std::stoi(inst.substr(index, index2-index));
+        if (card.getInstruction().find("DRAW")) {
+            // we have a draw some amount of cards
+            for (int i = 0; i < val; i++) 
+                this->drawPointCard();
+        } else {
+            // instead of drawing, we'll play 
+            for (int i = 0; i < val; i++)
+                this->playPointCard();
+        }
+    } else {
+        // meaning we either have reverse hand or swap hand
+        if (inst.find("REVERSE") != -1) {
+            // meaning that we have reverse hand
+            this->hand_.Reverse();
+        } else {
+            Hand tmp = this->hand_;
+            this->hand_ = this->opponent_->getHand();
+            this->opponent_->setHand(tmp); 
+        }
+
+    }
 
 }
 

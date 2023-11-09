@@ -2,11 +2,11 @@
 # makefile
 
 # executables
-main: main.o Card.o Hand.o PointCard.o ActionCard.o Deck.o
-	g++ -std=c++11 -o main main.o Card.o Hand.o PointCard.o ActionCard.o Deck.o
+main: main.o Card.o Hand.o PointCard.o ActionCard.o Deck.o Player.o
+	g++ -std=c++11 -o main main.o Card.o Hand.o PointCard.o ActionCard.o Deck.o Player.o
 
-test: test.o Card.o Hand.o PointCard.o ActionCard.o Deck.o
-	g++ -std=c++11 -o test test.o Card.o Hand.o PointCard.o ActionCard.o Deck.o
+test: test.o Card.o Hand.o PointCard.o ActionCard.o Deck.o Player.o
+	g++ -std=c++11 -o test test.o Card.o Hand.o PointCard.o ActionCard.o Deck.o Player.o
 
 
 # .o files
@@ -30,6 +30,10 @@ pointCard.o: pointCard.cpp PointCard.hpp Card.cpp Card.hpp
 
 actionCard.o: ActionCard.cpp ActionCard.hpp Card.cpp Card.hpp
 	g++ -std=c++11 -c ActionCard.cpp ActionCard.hpp Card.cpp Card.hpp
+
+Player.o: Player.hpp Player.cpp
+	g++ -std=c++11 -c Player.cpp Player.hpp
+
 # misc
 clean:
 	rm ./main *.o ./*.gch ./test
