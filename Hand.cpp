@@ -48,6 +48,7 @@ void Hand::Reverse() {
 }
 
 int Hand::PlayCard() {
+    
     if ( this->cards_.size() == 0 ) {
         throw std::exception();
     } 
