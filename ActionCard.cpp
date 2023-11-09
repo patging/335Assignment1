@@ -1,4 +1,5 @@
 #include "ActionCard.hpp"
+#include "Card.hpp"
 
 ActionCard::ActionCard() {
     this->setType(ACTION_CARD);

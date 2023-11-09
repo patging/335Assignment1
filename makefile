@@ -7,24 +7,23 @@ main: main.o Card.o Hand.o PointCard.o ActionCard.o Deck.o
 
 
 # .o files
-main.o: main.cpp
-	g++ -std=c++11 -c main.cpp
+main.o: main.cpp main.hpp
+	g++ -std=c++11 -c main.cpp main.hpp
 
 card.o: Card.cpp Card.hpp
-	g++ -std=c++11 -c Card.cpp
+	g++ -std=c++11 -c Card.cpp Card.hpp
 
 deck.o: Deck.cpp Deck.hpp
-	g++ -std=c++11 -c Deck.cpp
+	g++ -std=c++11 -c Deck.cpp Deck.hpp
 
 hand.o: Hand.cpp Hand.hpp
-	g++ -std=c++11 -c Hand.cpp
+	g++ -std=c++11 -c Hand.cpp Hand.hpp
 
-pointCard.o: pointCard.cpp pointCard.hpp
-	g++ -std=c++11 -c PointCard.cpp
+pointCard.o: pointCard.cpp PointCard.hpp Card.cpp Card.hpp
+	g++ -std=c++11 -c PointCard.cpp PointCard.hpp Card.cpp Card.hpp
 
-actionCard.o: ActionCard.cpp
-	g++ -std=c++11 -c ActionCard.cpp
-
+actionCard.o: ActionCard.cpp ActionCard.hpp Card.cpp Card.hpp
+	g++ -std=c++11 -c ActionCard.cpp ActionCard.hpp Card.cpp Card.hpp
 # misc
 clean:
-	rm ./main *.o
+	rm ./main *.o ./*.gch

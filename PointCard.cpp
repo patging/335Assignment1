@@ -1,4 +1,5 @@
 #include "PointCard.hpp"
+#include "Card.hpp"
 
 PointCard::PointCard() {
     this->setType(POINT_CARD);

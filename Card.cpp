@@ -44,6 +44,7 @@ Card& Card::operator=(Card&& rhs) {
     this->cardType_ = std::move(rhs.cardType_);
     this->drawn_ = std::move(rhs.drawn_);
     this->instruction_ = std::move(rhs.instruction_);
+    return *this;
 }
 
 std::string Card::getType() const {
