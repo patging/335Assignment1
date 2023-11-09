@@ -46,7 +46,7 @@ class Deck
 
         void Shuffle() {
             // some random number generator
-            std::mt19937 rng; rng.seed(2028358904);
+            std::mt19937 rng(2028358904);
             // running shuffling with said rng
             std::shuffle(std::begin(this->cards_), std::end(this->cards_), rng);
         }

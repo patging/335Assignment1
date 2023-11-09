@@ -23,8 +23,8 @@ void ActionCard::Print() const {
     std::cout << "Card: " << std::endl;
     
     if (this->getImageData() == nullptr) {
-        std::cout << "No image data" << std::endl;
+        std::cout << "No image data";
     } else {
-        std::cout << this->getImageData() << std::endl;
+        std::cout << this->getImageData();
     }
 }
