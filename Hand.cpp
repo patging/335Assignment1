@@ -38,9 +38,12 @@ bool Hand::isEmpty() const {
 void Hand::Reverse() {
     std::deque<PointCard> tmp;
 
-    for (auto i = this->cards_.rbegin(); i != this->cards_.rend(); ++i ) {
-        tmp.push_back(*i);
+    for (int i = 0; i < this->cards_.size(); i++ ) {
+        tmp.push_front(this->cards_.front());
+        this->cards_.pop_front();
     }
+    tmp.push_front(this->cards_.front());
+    this->cards_.pop_front();
     this->cards_ = tmp;
 }
 
