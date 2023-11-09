@@ -2,6 +2,13 @@
 #include <algorithm>
 
 Card::Card() {
+    // KEEP THIS HERE
+    // THIS MAY SEEM REDUNDANT
+    // BUT IT WILL BREAK IF YOU DONT
+    // KEEP IT AS THE NULL POINTER
+    this->instruction_ = "";
+    this->drawn_ = false;
+    this->bitmap_ = nullptr;
 }
 
 Card::~Card() {
@@ -28,7 +35,15 @@ Card::Card(const Card& rhs) {
     this->instruction_ = rhs.getInstruction();
 
     // copying bitmap data
-    std::copy(rhs.getImageData(), rhs.getImageData() + 80, this->bitmap_+1);
+    if (rhs.bitmap_ == nullptr) {
+        // manually give it null ptr, elsewise copy it over 
+        // this is getting too buggy on my side for some reason
+        this->bitmap_ = nullptr;
+    } else {
+        // you can use std copy, but this thing isn't working for me rn :(
+        for (int i = 0; i < 80; i++) 
+            this->bitmap_[i] = rhs.bitmap_[i];
+    }
 }
 
 Card& Card::operator=(const Card& rhs) {
