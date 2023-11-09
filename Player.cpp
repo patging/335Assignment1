@@ -30,7 +30,7 @@ void Player::play(ActionCard&& card) {
     // step 1: determine what the actual type of the card is 
     // step 2: execute the said instruction
     std::string inst = card.getInstruction();
-    if (inst.find("CARD") == -1 ) {
+    if (inst.find("CARD") != -1 ) {
         // we have some card where we either play a card or draw it
         int index = (int) inst.find(" ") + 1;
         int index2 = (int) inst.rfind(" ") + 1;
