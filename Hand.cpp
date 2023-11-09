@@ -55,7 +55,7 @@ int Hand::PlayCard() {
 
     PointCard p = this->cards_.front();
 
-    if (!p.isPlayable()) {
+    if (p.isPlayable()) {
         throw std::exception();
     }
 

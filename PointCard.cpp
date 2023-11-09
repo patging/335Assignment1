@@ -9,7 +9,7 @@ PointCard::PointCard() {
 }
 
 bool PointCard::isPlayable() {
-    return ! this->getDrawn() && std::stoi(this->getInstruction()) >= 0;
+    return this->getDrawn() && std::stoi(this->getInstruction()) >= 0;
 }
 
 void PointCard::Print() const {
