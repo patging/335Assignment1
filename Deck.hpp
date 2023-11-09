@@ -19,52 +19,45 @@ template <typename CardType>
 class Deck 
 {
     public:
-        /**
-         * @post: Construct a new Deck object
-         */
-        Deck();
+        Deck(){
+            this->cards_.clear();
+        }
 
-        /**
-         * @post: Destroy the Deck object 
-         */
-        ~Deck();
+        ~Deck(){
+            this->cards_.clear();
+        }
+        void AddCard(const CardType& card) {
+            this->cards_.push_back(card);
+        }
 
-        /**
-         * @post: Add a Card to the Deck
-         * @param: const reference to CardType card
-         */
-        void AddCard(const CardType& card);
+        CardType&& Draw() {
+            if (this->IsEmpty()) {
+                return;
+            }
+            CardType&& c =  std::move(this->cards_.back()); // making it ready to del
+            c.setDrawn(true);
+            cards_.pop_back(); // popping 
+            return c;
+        }
 
-        /**
-         * @post: Draw a card from the deck
-         * @pre: the deck is not empty
-         * @return the right hand value of type CardType 
-         */
-        CardType&& Draw();
+        bool IsEmpty() const {
+            return this->cards_.size() == 0;
+        }
 
-        /**
-         * @return if the deck is empty 
-         */
-        bool IsEmpty() const;
+        void Shuffle() {
+            // some random number generator
+            std::mt19937 rng = std::mt19937(2028358904);
+            // running shuffling with said rng
+            std::shuffle(std::begin(this->cards_), std::end(this->cards_), rng);
+        }
 
-        /**
-         * @post: Shuffle the deck 
-         * Create a random number generator using std::mt19937 with seed 2028358904, 
-         * then call std::shuffle on the vector of cards, and with the random number generator as the third argument.  
-         * https://en.cppreference.com/w/cpp/algorithm/random_shuffle
-         * https://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine
-         */
-        void Shuffle();
+        int getSize() const {
+            return (int) this->cards_.size();
+        }
 
-        /**
-         * @return the size of the deck 
-         */
-        int getSize() const;
-
-        /**
-         * @return the vector of cards in the deck 
-         */
-        std::vector<CardType> getDeck() const;
+        std::vector<CardType> getDeck() const {
+            return this->cards_;
+        }
 
     private:
         std::vector<CardType> cards_;

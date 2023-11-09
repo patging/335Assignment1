@@ -2,15 +2,11 @@
 #include <algorithm>
 
 Card::Card() {
-    this->setDrawn(false);
 }
 
 Card::~Card() {
-    delete &cardType_;
-    delete &instruction_;
     delete[] bitmap_;
     bitmap_ = nullptr;
-    delete &drawn_;
 }
 
 Card::Card(const Card& rhs) {
