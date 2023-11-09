@@ -31,13 +31,10 @@ class Deck
         }
 
         CardType&& Draw() {
-            if (!this->IsEmpty()) {
-
                 CardType&& c =  std::move(this->cards_.back()); // making it ready to del
                 c.setDrawn(true);
                 cards_.pop_back(); // popping 
                 return c;
-            }
         }
 
         bool IsEmpty() const {
