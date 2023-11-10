@@ -47,7 +47,7 @@ Card& Card::operator=(const Card& rhs) {
     this->instruction_ = rhs.getInstruction();
     this->drawn_ = rhs.getDrawn();
 
-    this->bitmap_ = new int[80];
+    this->bitmap_ = new int(80);
     for (int i =0 ; i <80; i++) {
         this->bitmap_[i] = rhs.bitmap_[i];
     }

@@ -25,6 +25,7 @@ void Player::play(ActionCard &&card) {
   // step 1: determine what the actual type of the card is
   // step 2: execute the said instruction
   std::string inst = card.getInstruction();
+  std::cout << "PLAYING ACTION CARD: " << inst << std::endl;
   // immediate matches
   if (inst.find("REVERSE HAND") != -1) {
     // do the reverse
@@ -56,8 +57,11 @@ void Player::play(ActionCard &&card) {
 }
 
 void Player::drawPointCard() {
-  PointCard p = this->pointdeck_->Draw();
-  this->hand_.addCard(std::move(p));
+  if (this->pointdeck_ != nullptr) {
+    PointCard p = this->pointdeck_->Draw();
+    this->hand_.addCard(std::move(p));
+  }
+
 }
 
 void Player::playPointCard() { this->score_ += this->hand_.PlayCard(); }
