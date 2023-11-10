@@ -15,7 +15,7 @@ bool ActionCard::isPlayable() {
         if (this->getInstruction() == "REVERSE HAND" || this->getInstruction() == "SWAP HAND WITH OPPONENT") {
             // we're checking for cards without a number on them
             return true;
-        } else if (std::stoi(this->getInstruction().substr(index, index2 - index)) >= 0) {
+        } else if (std::stoi(this->getInstruction().substr(index, index2 - index)) >= 0 && (this->getInstruction().find("DRAW") != -1 || this->getInstruction().find("PLAY") != -1 ) ) {
             // we're checking for the cards with a number to see if they're valid
             return true;
         } 
