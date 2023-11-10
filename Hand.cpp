@@ -1,8 +1,6 @@
 #include "Hand.hpp"
 #include <vector>
-Hand::Hand() {
-    this->cards_.clear();
-}
+Hand::Hand() {}
 
 Hand::~Hand() {
     this->cards_.clear();
@@ -13,7 +11,7 @@ Hand::Hand(const Hand& other) {
 }
 
 Hand& Hand::operator=(const Hand& other) {
-    this->cards_ = other.cards_;
+    this->cards_ = other.getCards();
     return *this;
 }
 

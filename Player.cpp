@@ -1,110 +1,148 @@
 #include "Player.hpp"
 
-Player::Player() {
-    this->score_ = 0;
-    this->opponent_ = nullptr;
-    this->actiondeck_ = nullptr;
-    this->pointdeck_ = nullptr;
+/**
+* @post: Construct a new Player object
+*/
+Player::Player(){
+    score_ = 0;
+    opponent_ = nullptr;
+    actiondeck_ = nullptr;
+    pointdeck_ = nullptr;
 }
 
-Player::~Player() {
-    delete this->opponent_;
-    delete this->actiondeck_;
-    delete this->pointdeck_;
-    this->opponent_ = nullptr;
-    this->actiondeck_ = nullptr;
-    this->pointdeck_ = nullptr;
+/**
+* @post: Destroy the Player object
+*/
+Player::~Player(){
+    score_ = 0;
+    delete opponent_;
+    opponent_ = nullptr;
+    delete actiondeck_;
+    actiondeck_ = nullptr;
+    delete pointdeck_;
+    pointdeck_ = nullptr;
 }
 
-const Hand& Player::getHand() const {
-    return this->hand_;
+/**
+* @return the player's hand
+*/
+const Hand& Player::getHand() const{
+    return hand_;
 }
 
-void Player::setHand(const Hand& hand) {
-    this->hand_= hand;
-
+/**
+* @post: Set the player's hand
+* @param const reference to a hand object
+*/
+void Player::setHand(const Hand& hand){
+    hand_ = hand;
 }
 
-int Player::getScore() const {
-    return this->score_;
+/**
+* @return the Player's current score
+*/
+int Player::getScore() const{
+    return score_;
 }
 
-void Player::setScore(const int& score) {
-    this->score_ = score;
+/**
+* @post: Set the player's score
+* @param: score 
+*/
+void Player::setScore(const int& score){
+    score_ = score;
 }
 
-void Player::play(ActionCard&& card) {
-    // step 1: determine what the actual type of the card is 
-    // step 2: execute the said instruction
-    std::string inst = card.getInstruction();
-    std::cout << "PLAYING ACTION CARD: " << inst << std::endl;
-    if (inst.find("CARD") != -1 ) {
-        // we have some card where we either play a card or draw it
-        int index = (int) inst.find(" ") + 1;
-        int index2 = (int) inst.rfind(" ") ;
-        int val = std::stoi(inst.substr(index, index2-index));
-        if (card.getInstruction().find("DRAW") != -1) {
-            // we have a draw some amount of cards
-            std::cout << "DRAW" << val << std::endl;
-            
-            for (int i = 0; i < val; i++) 
-                this->drawPointCard();
-            
-        } else {
-            // instead of drawing, we'll play 
-            
-            for (int i = 0; i < val; i++)
-                this->playPointCard();
-            
+/**
+* @post: Play a given action card
+* @param: an Actioncard object
+* Begin the function by reporting the instruction of the card:
+* PLAYING ACTION CARD: [instruction]
+*/
+void Player::play(ActionCard&& card){
+    std::string instruction = card.getInstruction();
+    std::cout << "PLAYING ACTION CARD: " << instruction << std::endl;
+    std::string withoutNumber = instruction.substr(0, instruction.find(" ")) + instruction.substr(instruction.rfind(" ") + 1, 8);
+    if(withoutNumber == "DRAWCARD(S)" || withoutNumber == "PLAYCARD(S)"){
+        int number = std::stoi(instruction.substr(instruction.find(" ") + 1, instruction.rfind(" ") - instruction.find(" ") - 1));
+        for(int x = 0; x < number; x++){
+            if(withoutNumber == "DRAWCARD(S)")
+                drawPointCard();
+            else
+                playPointCard();
         }
-    } else {
-        // meaning we either have reverse hand or swap hand
-        if (inst == "REVERSE HAND") {
-            // meaning that we have reverse hand
-            std::cout << "REVERSE" << std::endl;
-            this->hand_.Reverse();
-        } else {
-            std::cout << "CHANGE HANDS" << std::endl;
-            
-            Hand tmp = this->hand_;
-            this->hand_ = this->opponent_->getHand();
-            this->opponent_->setHand(tmp); 
-            
+    }
+    
+    else if(instruction == "SWAP HAND WITH OPPONENT"){
+        if(opponent_ != nullptr){
+            Hand tmp = hand_;
+            hand_ = opponent_ -> hand_;
+            opponent_ -> setHand(tmp);
         }
-
     }
 
+    else if(instruction == "REVERSE HAND"){
+        hand_.Reverse();
+    }
 }
 
-void Player::drawPointCard() {
-    //p.setDrawn(true);
-    this->hand_.addCard(this->pointdeck_->Draw());
+/**
+* @post: Draw a point card and place it in the player's hand
+*/
+void Player::drawPointCard(){
+    if(pointdeck_ != nullptr)
+        hand_.addCard(pointdeck_ -> Draw());
 }
 
-void Player::playPointCard() {
-    this->score_ += this->hand_.PlayCard();
+/**
+* @post: Play a point card from the player's hand and update the player's score
+*/
+void Player::playPointCard(){
+    if(!(hand_.isEmpty()))
+        score_ += hand_.PlayCard();
 }
 
-void Player::setOpponent(Player* opponent) {
-    this->opponent_ = opponent;
+/**
+* @post: Set the opponent of the player
+* @param a pointer to a Player opponent 
+*/
+void Player::setOpponent(Player* opponent){
+    opponent_ = opponent;
 }
 
-Player* Player::getOpponent() {
-    return this->opponent_;
+/**
+* @return: a pointer to the player's opponent
+*/
+Player* Player::getOpponent(){
+    return opponent_;
 }
 
-void Player::setActionDeck(Deck<ActionCard>* actiondeck) {
-    this->actiondeck_ = actiondeck;
+/**
+* @post: set the action deck of the player 
+* @param: A pointer to a deck holding Action cards 
+*/
+ void Player::setActionDeck(Deck<ActionCard>* actiondeck){
+    actiondeck_ = actiondeck;
 }
 
-Deck<ActionCard>* Player::getActionDeck() {
-    return this->actiondeck_;
+/**
+* @return a pointer to the player's action deck
+*/
+Deck<ActionCard>* Player::getActionDeck(){
+    return actiondeck_;
 }
 
-void Player::setPointDeck(Deck<PointCard>* pointdeck) {
-    this->pointdeck_ = pointdeck;
+/**
+* @post: set the point deck of the player
+* @param: A pointer to a deck holding Point cards
+*/
+void Player::setPointDeck(Deck<PointCard>* pointdeck){
+    pointdeck_ = pointdeck;
 }
-
-Deck<PointCard>* Player::getPointDeck() {
-    return this->pointdeck_;
+        
+/**
+* @return: a pointer to the player's point deck
+*/
+Deck<PointCard>* Player::getPointDeck(){
+    return pointdeck_;
 }
