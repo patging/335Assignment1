@@ -9,7 +9,7 @@ ActionCard::ActionCard() {
 bool ActionCard::isPlayable() {
 
     int index = (int) this->getInstruction().find(" ") + 1;
-    int index2 = (int) this->getInstruction().rfind(" ") + 1;
+    int index2 = (int) this->getInstruction().rfind(" ");
 
     if (this->getDrawn()) {
         if (this->getInstruction() == "REVERSE HAND" || this->getInstruction() == "SWAP HAND WITH OPPONENT") {
