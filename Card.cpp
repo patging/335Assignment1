@@ -97,7 +97,7 @@ const int* Card::getImageData() const {
 
 void Card::setImageData(int* data) {
     if (data == nullptr) {
-        this->bitmap_ = nullptr
+        this->bitmap_ = nullptr;
     } else {
         this->bitmap_ = new int[80];
         for (int i =0;i <80;i++) 
