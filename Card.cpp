@@ -22,11 +22,7 @@ Card::~Card() {
 
 Card::Card(const Card& rhs) {
     // copying CardType
-    if ( rhs.getType() == "POINT_CARD" ) {
-        this->cardType_ = POINT_CARD;
-    } else {
-        this->cardType_ = ACTION_CARD;
-    }
+    this->cardType_ = rhs.cardType_;
 
     // copying drawn data
     this->drawn_ = rhs.getDrawn();
@@ -47,6 +43,16 @@ Card::Card(const Card& rhs) {
 }
 
 Card& Card::operator=(const Card& rhs) {
+    this->cardType_ = rhs.cardType_;
+    this->instruction_ = rhs.getInstruction();
+    this->drawn_ = rhs.getDrawn();
+
+    this->bitmap_ = new int[80];
+    for (int i =0 ; i <80; i++) {
+        this->bitmap_[i] = rhs.bitmap_[i];
+    }
+
+
     return *this;
 }
 
