@@ -41,8 +41,8 @@ void Player::play(ActionCard&& card) {
     if (inst.find("CARD") != -1 ) {
         // we have some card where we either play a card or draw it
         int index = (int) inst.find(" ") + 1;
-        int index2 = (int) inst.rfind(" ") + 1;
-        int val = std::stoi(inst.substr(index, index2-index));
+        int index2 = (int) inst.rfind(" ");
+        int val = std::stoi(inst.substr(index, index2-index-1));
         if (card.getInstruction().find("DRAW") != -1) {
             // we have a draw some amount of cards
             for (int i = 0; i < val; i++) 
