@@ -1,6 +1,8 @@
 #include "Hand.hpp"
-
-Hand::Hand() {}
+#include <vector>
+Hand::Hand() {
+    this->cards_.clear();
+}
 
 Hand::~Hand() {
     this->cards_.clear();
@@ -34,19 +36,20 @@ void Hand::addCard(PointCard&& card) {
 }
 
 bool Hand::isEmpty() const {
-    return this->cards_.size() == 0;
+    return this->cards_.empty();
 }
-
+// fix is buggy
 void Hand::Reverse() {
-    std::deque<PointCard> tmp;
-
-    for (int i = 0; i < this->cards_.size(); i++ ) {
-        tmp.push_front(this->cards_.front());
+    std::vector<PointCard> v;
+    int tmp = this->getCards().size();
+    for(int i = 0; i < tmp; i++) {
+        v.push_back(this->getCards().front());
         this->cards_.pop_front();
     }
-    tmp.push_front(this->cards_.front());
-    this->cards_.pop_front();
-    this->cards_ = tmp;
+    int tmp2 = v.size();
+    for(int i = 0; i < tmp2; i++) {
+        this->cards_.push_front(v.at(i));
+    }
 }
 
 int Hand::PlayCard() {
