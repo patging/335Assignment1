@@ -1,39 +1,16 @@
-# Patrick Ging
-# makefile
+all: main
 
-# executables
-main: main.o Card.o Hand.o PointCard.o ActionCard.o Deck.o Player.o
-	g++ -std=c++11 -o main main.o Card.o Hand.o PointCard.o ActionCard.o Deck.o Player.o
+CXX = clang++
+override CXXFLAGS += -g -Wmost -Werror
 
-test: test.o Card.o Hand.o PointCard.o ActionCard.o Deck.o Player.o
-	g++ -std=c++11 -o test test.o Card.o Hand.o PointCard.o ActionCard.o Deck.o Player.o
+SRCS = $(shell find . -name '.ccls-cache' -type d -prune -o -type f -name '*.cpp' -print | sed -e 's/ /\\ /g')
+HEADERS = $(shell find . -name '.ccls-cache' -type d -prune -o -type f -name '*.h' -print)
 
+main: $(SRCS) $(HEADERS)
+	$(CXX) $(CXXFLAGS) $(SRCS) -o "$@"
 
-# .o files
-main.o: main.cpp main.hpp
-	g++ -std=c++11 -c main.cpp main.hpp
+main-debug: $(SRCS) $(HEADERS)
+	$(CXX) $(CXXFLAGS) -U_FORTIFY_SOURCE -O0 $(SRCS) -o "$@"
 
-test.o: test.cpp
-	g++ -std=c++11 -c test.cpp
-
-card.o: Card.cpp Card.hpp
-	g++ -std=c++11 -c Card.cpp Card.hpp
-
-deck.o: Deck.cpp Deck.hpp
-	g++ -std=c++11 -c Deck.cpp Deck.hpp
-
-hand.o: Hand.cpp Hand.hpp
-	g++ -std=c++11 -c Hand.cpp Hand.hpp
-
-pointCard.o: pointCard.cpp PointCard.hpp Card.cpp Card.hpp
-	g++ -std=c++11 -c PointCard.cpp PointCard.hpp Card.cpp Card.hpp
-
-actionCard.o: ActionCard.cpp ActionCard.hpp Card.cpp Card.hpp
-	g++ -std=c++11 -c ActionCard.cpp ActionCard.hpp Card.cpp Card.hpp
-
-Player.o: Player.hpp Player.cpp
-	g++ -std=c++11 -c Player.cpp Player.hpp
-
-# misc
 clean:
-	rm ./main *.o ./*.gch ./test
+	rm -f main main-debug
