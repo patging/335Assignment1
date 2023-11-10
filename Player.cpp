@@ -70,7 +70,7 @@ void Player::play(ActionCard&& card) {
 void Player::drawPointCard() {
     PointCard p = this->pointdeck_->Draw();
     p.setDrawn(true);
-    this->opponent_->hand_.addCard(std::move(p));
+    this->hand_.addCard(std::move(p));
 }
 
 void Player::playPointCard() {
