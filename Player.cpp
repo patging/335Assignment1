@@ -74,8 +74,7 @@ void Player::drawPointCard() {
 }
 
 void Player::playPointCard() {
-    PointCard p = this->pointdeck_->Draw();
-    this->score_ += std::stoi(p.getInstruction());
+    this->score_ += this->hand_.PlayCard();
 }
 
 void Player::setOpponent(Player* opponent) {
