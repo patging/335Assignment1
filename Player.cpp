@@ -54,7 +54,7 @@ void Player::play(ActionCard&& card) {
         }
     } else {
         // meaning we either have reverse hand or swap hand
-        if (inst.find("REVERSE") != -1) {
+        if (inst == "REVERSE HAND") {
             // meaning that we have reverse hand
             this->hand_.Reverse();
         } else {
