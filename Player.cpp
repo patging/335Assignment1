@@ -2,12 +2,18 @@
 
 Player::Player() {
     this->score_ = 0;
+    this->opponent_ = nullptr;
+    this->actiondeck_ = nullptr;
+    this->pointdeck_ = nullptr;
 }
 
 Player::~Player() {
     delete this->opponent_;
     delete this->actiondeck_;
     delete this->pointdeck_;
+    this->opponent_ = nullptr;
+    this->actiondeck_ = nullptr;
+    this->pointdeck_ = nullptr;
 }
 
 const Hand& Player::getHand() const {
@@ -15,7 +21,8 @@ const Hand& Player::getHand() const {
 }
 
 void Player::setHand(const Hand& hand) {
-    this->hand_ = hand;
+    this->hand_= hand;
+
 }
 
 int Player::getScore() const {
