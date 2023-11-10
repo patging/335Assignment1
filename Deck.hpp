@@ -31,8 +31,8 @@ class Deck
         }
 
         CardType&& Draw() {
-                CardType&& c =  std::move(this->cards_.back()); // making it ready to del
-                c.setDrawn(true);
+                CardType&& c = std::move(this->cards_.back());
+                c.setDrawn(true); // making it ready to del
                 cards_.pop_back(); // popping 
                 return std::move(c);
         }
