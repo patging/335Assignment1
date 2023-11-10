@@ -11,6 +11,7 @@ Hand::Hand(const Hand& other) {
 }
 
 Hand& Hand::operator=(const Hand& other) {
+    this->cards_ = other.cards_;
     return *this;
 }
 
