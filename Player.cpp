@@ -43,7 +43,7 @@ void Player::play(ActionCard&& card) {
         int index = (int) inst.find(" ") + 1;
         int index2 = (int) inst.rfind(" ") + 1;
         int val = std::stoi(inst.substr(index, index2-index));
-        if (card.getInstruction().find("DRAW")) {
+        if (card.getInstruction().find("DRAW") != -1) {
             // we have a draw some amount of cards
             for (int i = 0; i < val; i++) 
                 this->drawPointCard();
